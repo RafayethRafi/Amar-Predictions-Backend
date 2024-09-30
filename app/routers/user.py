@@ -49,7 +49,7 @@ def read_users_me(current_user: schemas.UserOut = Depends(oauth2.get_current_use
 
 
 @router.get("/main_background_image", response_model=schemas.HeroBackgroundImageDB)
-def get_main_background_image(db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
+def get_main_background_image(db: Session = Depends(get_db)):
     hero_image = db.query(models.MainBackgroundImage).order_by(models.MainBackgroundImage.id.desc()).first()
     
     if hero_image:
@@ -69,7 +69,7 @@ def get_main_background_image(db: Session = Depends(get_db), current_user: schem
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No active main background image found")
 
 @router.get("/cricket_background_image",response_model=schemas.CricketBackgroundImageDB)
-def get_cricket_background_image(db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
+def get_cricket_background_image(db: Session = Depends(get_db)):
     cricket_image = db.query(models.CricketBackgroundImage).order_by(models.CricketBackgroundImage.id.desc()).first()
     
     if cricket_image:
@@ -90,7 +90,7 @@ def get_cricket_background_image(db: Session = Depends(get_db), current_user: sc
     
     
 @router.get("/football_background_image",response_model=schemas.FootballBackgroundImageDB)
-def get_football_background_image(db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
+def get_football_background_image(db: Session = Depends(get_db)):
     football_image = db.query(models.FootballBackgroundImage).order_by(models.FootballBackgroundImage.id.desc()).first()
 
     if football_image:
@@ -110,8 +110,8 @@ def get_football_background_image(db: Session = Depends(get_db), current_user: s
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No active football background image found")
     
     
-@router.get("/reviews",response_model=List[schemas.ReviewOut])
-async def get_reviews(db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
-    reviews = db.query(models.Review).all()
-    return reviews
+# @router.get("/reviews",response_model=List[schemas.ReviewOut])
+# async def get_reviews(db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
+#     reviews = db.query(models.Review).all()
+#     return reviews
 

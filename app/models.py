@@ -14,22 +14,58 @@ class User(Base):
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     
-    reviews = relationship("Review", back_populates="user")
+    # reviews = relationship("Review", back_populates="user")
+    cricket_reviews = relationship("CricketReview", back_populates="user")
+    football_reviews = relationship("FootballReview", back_populates="user")
     main_background_images = relationship("MainBackgroundImage", back_populates="user")
     cricket_background_images = relationship("CricketBackgroundImage", back_populates="user")
     football_background_images = relationship("FootballBackgroundImage", back_populates="user")
 
-class Review(Base):
-    __tablename__ = "reviews"
+# class Review(Base):
+#     __tablename__ = "reviews"
+
+#     id = Column(Integer, primary_key=True, nullable=False)
+#     match_id = Column(String, nullable=False)
+#     content = Column(String, nullable=False)
+#     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+#     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+#     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    
+#     user = relationship("User", back_populates="reviews")
+    
+
+class CricketReview(Base):
+    __tablename__ = "cricket_reviews"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    match_id = Column(String, nullable=False)
+    team1 = Column(String, nullable=False)
+    team2 = Column(String, nullable=False)
+    score1 = Column(Integer, nullable=True)
+    score2 = Column(Integer, nullable=True)
+    wicket1 = Column(Integer, nullable=True)
+    wicket2 = Column(Integer, nullable=True)
     content = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     
-    user = relationship("User", back_populates="reviews")
+    user = relationship("User", back_populates="cricket_reviews")
+    
+class FootballReview(Base):
+    __tablename__ = "football_reviews"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    team1 = Column(String, nullable=False)
+    team2 = Column(String, nullable=False)
+    score1 = Column(Integer, nullable=True)
+    score2 = Column(Integer, nullable=True)
+    content = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    
+    user = relationship("User", back_populates="football_reviews")
+    
 
 class MainBackgroundImage(Base):
     __tablename__ = "main_background_images"

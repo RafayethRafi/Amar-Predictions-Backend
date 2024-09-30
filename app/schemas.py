@@ -133,17 +133,41 @@ class FootballBackgroundImageDB(BaseModel):
         from_attributes = True
         
         
-class Review(BaseModel):
-    pass
+# class Review(BaseModel):
+#     pass
     
-class ReviewCreate(Review):
-    match_id : str
-    content : str
+# class ReviewCreate(Review):
+#     match_id : str
+#     content : str
 
-class ReviewOut(Review):
-    id : int
-    match_id : str
+# class ReviewOut(Review):
+#     id : int
+#     match_id : str
+#     content : str
+#     created_at : datetime
+#     updated_at : datetime
+#     user : UserOut
+    
+#     class Config:
+#         from_attributes = True
+        
+
+
+class CricketReview(BaseModel):
+    team1 : str
+    team2 : str
+    score1 : Optional[conint(ge=0)] = None
+    score2 : Optional[conint(ge=0)] = None
+    wicket1 : Optional[conint(ge=0)] = None
+    wicket2 : Optional[conint(ge=0)] = None
     content : str
+    
+    
+class CricketReviewCreate(CricketReview):
+    pass
+
+class CricketReviewOut(CricketReview):
+    id : int
     created_at : datetime
     updated_at : datetime
     user : UserOut
@@ -152,4 +176,22 @@ class ReviewOut(Review):
         from_attributes = True
         
         
+class FootballReview(BaseModel):
+    team1 : str
+    team2 : str
+    score1 : Optional[conint(ge=0)] = None
+    score2 : Optional[conint(ge=0)] = None
+    content : str
+    
+class FootballReviewCreate(FootballReview):
+    pass
+
+class FootballReviewOut(FootballReview):
+    id : int
+    created_at : datetime
+    updated_at : datetime
+    user : UserOut
+    
+    class Config:
+        from_attributes = True
 
