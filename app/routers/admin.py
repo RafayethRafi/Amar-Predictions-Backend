@@ -259,11 +259,11 @@ def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
 
 
 @router.get("/cricket_reviews", response_model=List[schemas.CricketReviewOut])
-def read_cricket_reviews(skip: int = 0, limit: int = 10, db: Session = Depends(get_db), current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
-    cricket_reviews = db.query(models.CricketReview).offset(skip).limit(limit).all()
+def read_cricket_reviews(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    cricket_reviews = db.query(models.CricketReview).order_by(models.CricketReview.id.desc()).offset(skip).limit(limit).all()
     return cricket_reviews
 
 @router.get("/football_reviews", response_model=List[schemas.FootballReviewOut])
-def read_football_reviews(skip: int = 0, limit: int = 10, db: Session = Depends(get_db),current_user: schemas.UserOut = Depends(oauth2.get_current_user)):
-    football_reviews = db.query(models.FootballReview).offset(skip).limit(limit).all()
+def read_football_reviews(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    football_reviews = db.query(models.FootballReview).order_by(models.FootballReview.id.desc()).offset(skip).limit(limit).all()
     return football_reviews
