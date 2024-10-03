@@ -161,6 +161,7 @@ class CricketReview(BaseModel):
     wicket1 : Optional[conint(ge=0)] = None
     wicket2 : Optional[conint(ge=0)] = None
     content : str
+    match_type : Optional[str] = None
     
     
 class CricketReviewCreate(CricketReview):
@@ -171,6 +172,7 @@ class CricketReviewOut(CricketReview):
     created_at : datetime
     updated_at : datetime
     user : UserOut
+    # league : 'LeagueOut'
     
     class Config:
         from_attributes = True
@@ -182,6 +184,7 @@ class FootballReview(BaseModel):
     score1 : Optional[conint(ge=0)] = None
     score2 : Optional[conint(ge=0)] = None
     content : str
+    match_type : Optional[str] = None
     
 class FootballReviewCreate(FootballReview):
     pass
@@ -191,7 +194,28 @@ class FootballReviewOut(FootballReview):
     created_at : datetime
     updated_at : datetime
     user : UserOut
+    # league : 'LeagueOut'
     
     class Config:
         from_attributes = True
 
+
+class League(BaseModel):
+    name : str
+    sport_type : str
+    logo : Optional[str] = None
+    
+class LeagueCreate(League):
+    pass
+
+class LeagueOut(League):
+    id : int
+    created_at : datetime
+    updated_at : datetime
+    user : UserOut
+    cricket_reviews : Optional['CricketReviewOut'] = None
+    football_reviews : Optional['FootballReviewOut'] = None
+
+    
+    class Config:
+        from_attributes = True
