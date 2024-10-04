@@ -305,6 +305,10 @@ def create_league(league_data: schemas.LeagueCreate, db: Session = Depends(get_d
 @router.get("/leagues", response_model=List[schemas.LeagueOut])
 def read_leagues(db: Session = Depends(get_db)):
     leagues = db.query(models.League).all()
+    
+    if not leagues:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Leagues not found")
+    
     return leagues
 
 
@@ -359,6 +363,10 @@ def delete_league(league_id_to_delete: int, db: Session = Depends(get_db), curre
 @router.get("/league/{league_id}", response_model=schemas.LeagueOut)
 def read_league(league_id: int, db: Session = Depends(get_db)):
     league = db.query(models.League).filter(models.League.id == league_id).first()
+    
+    if not league:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="League not found")
+    
     return league
 
 
