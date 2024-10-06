@@ -1,9 +1,8 @@
+"""initial
 
-"""added a table for leagues and a a match type for each review.
-
-Revision ID: 3d73e2a98882
+Revision ID: d208a591d655
 Revises: 
-Create Date: 2024-10-04 17:59:48.256018
+Create Date: 2024-10-06 20:13:20.791743
 
 """
 from typing import Sequence, Union
@@ -13,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '3d73e2a98882'
+revision: str = 'd208a591d655'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -124,4 +123,3 @@ def downgrade() -> None:
     op.drop_table('cricket_background_images')
     op.drop_table('users')
     # ### end Alembic commands ###
-
